@@ -106,24 +106,26 @@ bind-address=0.0.0.0
 ### Set Up Replication
 
 On the primary node, create a replication user:
-
+```sh
 CREATE USER 'replication_user'@'%' IDENTIFIED BY 'Pass@123';
 GRANT REPLICATION SLAVE ON *.* TO 'replication_user'@'%';
 FLUSH PRIVILEGES;
-
+```
 On each replica node, configure replication:
-
+```sh
 CHANGE MASTER TO MASTER_HOST='192.168.xxx.xxx',
 MASTER_USER='replication_user', MASTER_PASSWORD='Pass@123', MASTER_PORT=3306, 
 MASTER_USE_GTID=slave_pos, MASTER_CONNECT_RETRY=10;
-
+```
+Start the slave:
+```sh
 START SLAVE;
-
+```
 Verify replication status:
-
+```sh
 SHOW SLAVE STATUS\G
-
-MaxScale Setup
+```
+### MaxScale Setup
 
 Install MaxScale
 
