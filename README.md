@@ -125,21 +125,22 @@ Verify replication status:
 ```sh
 SHOW SLAVE STATUS\G
 ```
-### MaxScale Setup
+## MaxScale Setup
 
-Install MaxScale
-
+### Install MaxScale
+Download the repository of maxscale and install it:
+```sh
 sudo dnf install -y maxscale
-
-Create maxscale admin user for monitoring the cluster in the master MariaDB server(It will eventually be replicated across the cluster):
+```
+Create maxscale admin user for monitoring the cluster in the MariaDB master server(It will eventually be replicated across the cluster):
+```sh
 CREATE USER 'maxadmin'@'%' IDENTIFIED BY 'Admin@123';
 GRANT ALL ON *.* TO 'maxadmin'@'%';
 FLUSH PRIVILEGES; 
-
-Configure MaxScale
-
+```
+### Configure MaxScale
 Modify /etc/maxscale.cnf:
-
+```sh
 #####################################################
 # MaxScale documentation:                           #
 # https://mariadb.com/kb/en/mariadb-maxscale-24-02/ #
@@ -323,13 +324,12 @@ service=Read-Write-Service
 protocol=MariaDBClient
 port=3306
 address=0.0.0.0
-
-
-Start MaxScale
-
+```
+Start MaxScale:
+```sh
 sudo systemctl restart maxscale
-
-Load Balancing and Failover
+```
+## Load Balancing and Failover
 
 MaxScale automatically routes read/write queries.
 
@@ -337,14 +337,14 @@ If a database node fails, MaxScale removes it from the pool.
 
 If a MaxScale node fails, Keepalived can be used to manage a VIP.
 
-Configuring Keepalived for MaxScale HA
+### Configuring Keepalived for MaxScale HA
 
 Install Keepalived:
-
-sudo apt install keepalived
-
+```sh
+sudo dnf install -y keepalived
+```
 Modify /etc/keepalived/keepalived.conf:
-
+```sh
 ! Configuration File for keepalived
 
 
@@ -380,11 +380,13 @@ vrrp_instance VI_1 {
 #       notify_backup "/etc/keepalived/notify_script.sh BACKUP"
 notify "/etc/keepalived/notify_script.sh"
 }
-
+```
 A scriptfile- 'notify_script.sh' is required to notify keepalived when the service on the maxscale nodes go down so that the VIP can be assigned to the 
 next in-line/ backup maxscale node.
-
+```sh
 vi /etc/keepalived/notify_script.sh
+```
+```sh
 #!/bin/bash
 TYPE=$1
 NAME=$2
@@ -408,30 +410,29 @@ case $STATE in
               exit 1
               ;;
 esac
-
-
+```
 Allow permission to the file:
+```sh
 sudo chmod +x /etc/keepalived/notify_script.sh
-
+```
 Restart Keepalived:
-
+```sh
 sudo systemctl restart keepalived
-
-Monitoring and Maintenance
-
+```
+## Monitoring and Maintenance
 Check MaxScale status:
-
+```sh
 maxctrl list servers
-
+```
 Monitor Replication Status:
-
+```sh
 SHOW SLAVE STATUS\G;
-
+```
 Backup using MariaDB Backup:
-
+```sh
 mariabackup --backup --target-dir=/backup --user=root
-
-Contributing
+```
+## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue for any suggestions.
 
