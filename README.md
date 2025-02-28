@@ -103,7 +103,7 @@ bind-address=0.0.0.0
 [mariadb-10.5]
 ```
 
-Set Up Replication
+### Set Up Replication
 
 On the primary node, create a replication user:
 
