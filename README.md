@@ -31,11 +31,10 @@ This repository contains a detailed guide on the architecture, setup, and manage
 ### Install MariaDB on Each Node(I am using Rocky Linux v9.4)
 ```sh
 sudo dnf install -y mariadb-server
-
+```
 ### Configure GTID-Based Replication
-
 Modify the MariaDB configuration file (/etc/my.cnf.d/mariadb-server.cnf) on each node:
-
+```sh
 #
 # These groups are read by MariaDB server.
 # Use it for options that only the server (but not clients) should see
