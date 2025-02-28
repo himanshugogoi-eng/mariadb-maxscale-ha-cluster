@@ -443,6 +443,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 ### References
 
-[MariaDB Documentation]
+![MariaDB Documentation](https://mariadb.com/kb/en/documentation/)
 
-[MaxScale Documentation]
+![MaxScale Documentation](https://mariadb.com/kb/en/maxscale/)
