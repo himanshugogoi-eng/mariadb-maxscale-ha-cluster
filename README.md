@@ -101,7 +101,7 @@ bind-address=0.0.0.0
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
 [mariadb-10.5]
-
+```
 
 Set Up Replication
 
