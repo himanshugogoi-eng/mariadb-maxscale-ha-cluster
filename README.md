@@ -432,7 +432,8 @@ Backup using MariaDB Backup:
 ```sh
 mariabackup --backup --target-dir=/backup --user=root
 ```
-## Contributing
+
+**Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue for any suggestions.
 
