@@ -290,6 +290,7 @@ router=readwritesplit
 servers=cloudstackmariadb01,cloudstackmariadb02,cloudstackmariadb03
 user=maxadmin
 password=Admin@123
+enable_root_user=true
 max_sescmd_history = 1500
 causal_reads = global
 causal_reads_timeout =10s
